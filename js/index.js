@@ -1,4 +1,5 @@
 console.log("hello  node");
+
 var  a = "name";
 console.log (typeof a);
 a = 10;

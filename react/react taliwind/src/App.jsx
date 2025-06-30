@@ -1,19 +1,35 @@
+import requests from "./netflixData"
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+console.log(requests);
 
 
 const App = () => {
-  return (
-    <>
-    <div className="w-3/4 h-screen border-2 border-b-black m-auto">
-        Main div
-        <div className="w-[400px] h-[400px] flex flex-col items-center justify-endS border-2 border-t-black m-auto">
-          <div className="w-[40px] h-[40px] border-2 border-b-black">1</div>
-          <div className="w-[40px] h-[40px] border-b-black border-2">2</div>
-          <div className="w-[40px] h-[40px] border-b-black border-2">3</div>
-          <div className="w-[40px] h-[40px] border-b-black border-2">4</div>
-          </div> 
-          </div>
-      </>
-  )
-}; 
+const[netflixData, setNetflixData] = useState([]);
+console.log(netflixData);
+const getData = () =>{
+  axios 
+  axios.get(requests.requestTopRated)
+  .then((response) => setNetflixData(response.data.results)).catch((error) => console.error("Error fetching data:", error));
+};
+useEffect(() => {
+  getData();
+}, [getData]);
 
-export default App;
+  return (
+    <div>
+      <button onClick={getData} className="bg-red-600 text-white p-2 rounded-lg"> 
+        Get Netflix Data
+      </button>
+      {netflixData.map((Elem) => {
+        console.log(Elem)
+        return ( 
+      <img key={Elem.id} src={`https://image.tmdb.org/t/p/w500/${Elem.backdrop_path}`} alt={Elem.title} />
+        )})
+        }
+    </div>
+  )
+}
+
+export default App
