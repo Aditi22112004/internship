@@ -15,7 +15,7 @@ const getData = () =>{
 };
 useEffect(() => {
   getData();
-}, [getData]);
+}, []);
 
   return (
     <div>
